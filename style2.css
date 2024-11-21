@@ -1,0 +1,240 @@
+:root {
+    --titlebar-color-light: #f6f9f5;
+    --titlebar-color-dark: #5d605c;
+    --border-color-light: #cccccc;
+    --border-color-dark: #747674;
+}
+
+html {
+    font:
+        1em "Helvetica",
+        sans-serif;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    background-color: rgb(224, 224, 224);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0px;
+}
+
+.mac_window {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: #ffffff;
+    border: 0.5px solid var(--border-color-light);
+    border-radius: 10px;
+    width: 100%;
+    height: 90%;
+    box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.4);
+    transition: height 0.8s;
+    animation: 0.2s linear open;
+}
+
+@keyframes open {
+    from {
+        transform: scale(0.1, 0.1);
+    }
+    to {
+        transform: scale(1, 1);
+    }
+}
+.mac_titlebar {
+    flex-shrink: 0;
+    display: flex;
+    overflow: hidden;
+    height: 28px;
+    background-color: var(--titlebar-color-light);
+    border-bottom: 0.5px solid var(--border-color-light);
+    align-items: center;
+    padding-left: 8px;
+}
+
+.mac_titlebar > h5 {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+
+.button {
+    height: 12px;
+    width: 12px;
+    border-radius: 10px;
+    background-color: #aaaaaa;
+    margin-right: 8px;
+}
+.close {
+    background-color: #fc605b;
+}
+.minimize {
+    background-color: #fcbb40;
+}
+.maximize {
+    background-color: #33c648;
+}
+header {
+    display: flex;
+    justify-content: center;
+    padding: 1em;
+    border-bottom: 1px solid var(--border-color-light);
+}
+header a {
+    text-decoration: none;
+    padding: 0 1em;
+    color: inherit;
+    font-weight: bold;
+}
+header nav > ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.dropdown {
+    opacity: 0;
+    visibility: hidden;
+    display: block;
+    position: absolute;
+    left: 50%;
+    transform-origin: top;
+    transform: scale(0, 0);
+    transition:
+        opacity 0.3s ease-out,
+        transform 0.15s ease-in;
+    box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.4);
+    background-color: #ffffff;
+    z-index: 1;
+}
+.dropdown ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+li:hover > .dropdown,
+li:focus-within > .dropdown,
+li .dropdown:hover {
+    opacity: 1;
+    transform: scale(1, 1);
+    visibility: visible;
+}
+main {
+    height: calc(100% - 78px);
+}
+main p {
+    font-size: 120%;
+}
+footer {
+    text-align: center;
+}
+.ruler {
+    counter-reset: incr 0;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    height: 14px;
+    border-bottom: 1px solid var(--border-color-light);
+}
+.cm {
+    flex: 0 0 auto;
+    overflow: visible;
+    border-left: 1px solid var(--border-color-light);
+    width: 1cm;
+    height: 10px;
+}
+.cm:first-of-type {
+    margin-left: 0.5em;
+}
+.cm::before {
+    position: absolute;
+    content: "";
+    height: 2px;
+    border-left: 1px solid var(--border-color-light);
+    transform: translateX(0.5cm);
+}
+
+.cm::after {
+    position: absolute;
+    counter-increment: incr;
+    content: counter(incr);
+    font-size: 50%;
+    transform: translate(2px, 5px);
+}
+
+.content {
+    height: calc(100% - 15px);
+    margin: 0 0.5em;
+    overflow: scroll;
+    scrollbar-width: none;
+    position: relative;
+}
+.content a {
+    color: inherit;
+}
+span {
+    border-left: 1px solid #000000;
+    animation: 1s step-start infinite blink;
+}
+.recent-played-track {
+    text-align: center;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+.vid_container {
+    width: 21.5em;
+    aspect-ratio: 4 / 3;
+}
+.vid {
+    width: 100%;
+    height: 100%;
+}
+.pics {
+    display: flex;
+    flex-wrap: wrap;
+}
+figure {
+    flex: 33%;
+    width: 15em;
+}
+figure img {
+    width: 100%;
+}
+@media (prefers-color-scheme: dark) {
+    body {
+        color: #ffffff;
+    }
+    span {
+        border-color: #ffffff;
+    }
+    .mac_window {
+        background-color: #1e1e1e;
+        border-color: var(--border-color-dark);
+    }
+    .mac_titlebar {
+        background-color: var(--titlebar-color-dark);
+        border-color: var(--border-color-dark);
+    }
+    header,
+    .ruler,
+    .cm,
+    .cm::before {
+        border-color: var(--border-color-dark);
+    }
+    .dropdown {
+        background-color: #1e1e1e;
+    }
+}
+@media (min-width: 55em) {
+    .mac_window {
+        width: 55em;
+        height: 30em;
+        transition: height 0.8s;
+    }
+}
